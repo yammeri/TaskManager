@@ -23,6 +23,6 @@ public enum Status {
                 }
             }
         }
-       throw new IllegalAccessException("No such value"); // ?
+       throw new IllegalAccessException("No such value");
     }
 }
