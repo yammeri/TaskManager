@@ -1,5 +1,7 @@
 package com.example.taskmanager.entities.enums;
 
+import com.example.taskmanager.exceptions.PriorityIllegalArgumentException;
+
 public enum Priority {
     HIGH("High priority"),
     MEDIUM("Medium priority"),
@@ -15,7 +17,7 @@ public enum Priority {
         return value;
     }
 
-    public static Priority fromString(String value) throws IllegalAccessException {
+    public static Priority fromString(String value) {
         if (value != null) {
             for (Priority priority: Priority.values()) {
                 if (value.equalsIgnoreCase(priority.value)) {
@@ -23,6 +25,6 @@ public enum Priority {
                 }
             }
         }
-        throw new IllegalAccessException("No such value"); // ?
+        throw new PriorityIllegalArgumentException(value);
     }
 }

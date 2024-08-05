@@ -50,5 +50,6 @@ public class UserController {
     /* TODO:
     *   1. GET /users/{id}/createdTasks
     *   2. GET /users/{id}/performedTasks
-    *   3. Подумать над названиями */
+    *   3. Подумать над названиями
+    *   4. Написать назначение пользователя исполнителем задачи */
 }

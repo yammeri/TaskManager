@@ -1,5 +1,7 @@
 package com.example.taskmanager.entities.enums;
 
+import com.example.taskmanager.exceptions.StatusIllegalArgumentException;
+
 public enum Status {
     WAITING("Task is waiting"),
     PROGRESS("Task in progress"),
@@ -15,7 +17,7 @@ public enum Status {
         return value;
     }
 
-    public static Status fromString(String value) throws IllegalAccessException {
+    public static Status fromString(String value) {
         if (value != null) {
             for (Status status : Status.values()) {
                 if (value.equalsIgnoreCase(status.value)) {
@@ -23,6 +25,6 @@ public enum Status {
                 }
             }
         }
-       throw new IllegalAccessException("No such value");
+       throw new StatusIllegalArgumentException(value);
     }
 }
