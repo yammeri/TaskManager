@@ -1,13 +1,22 @@
 package com.example.taskmanager.entities;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,10 +26,10 @@ public class User {
     private String lastName;
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id")
-    private HashSet<Task> createdTasks = new HashSet<Task>();
+    private List<TaskEntity> createdTasks = new ArrayList<>();
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "performer_id")
-    private HashSet<Task> performedTasks = new HashSet<Task>();
+    private List<TaskEntity> performedTasks = new ArrayList<>();
 
     /* todo реализовать авторизацию по email-у и паролю */
     public Long getId() {
@@ -33,6 +42,14 @@ public class User {
 
     public String getLastName() {
         return this.lastName;
+    }
+
+    public List<TaskEntity> getCreatedTasks() {
+        return createdTasks;
+    }
+
+    public List<TaskEntity> getPerformedTasks() {
+        return performedTasks;
     }
 
     public void setId(Long id) {
@@ -52,10 +69,10 @@ public class User {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof User)) {
+        if (!(o instanceof UserEntity)) {
             return false;
         }
-        User user = (User) o;
+        UserEntity user = (UserEntity) o;
         return Objects.equals(this.id, user.id) &&
                 Objects.equals(this.firstName, user.firstName) &&
                 Objects.equals(this.lastName, user.lastName);

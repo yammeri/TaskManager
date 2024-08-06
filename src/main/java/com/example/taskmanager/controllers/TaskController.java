@@ -1,19 +1,16 @@
 package com.example.taskmanager.controllers;
 
-import com.example.taskmanager.repositories.TaskRepository;
+import com.example.taskmanager.services.TaskService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class TaskController {
-    private final TaskRepository repository;
+    private final TaskService service;
 
-    public TaskController(TaskRepository repository) {
-        this.repository = repository;
+    @Autowired
+    public TaskController(TaskService service) {
+        this.service = service;
     }
-
-    /* TODO:
-    *   1. Написать все "базовые" действия с задачами
-    *   2. GET /tasks/{id}/comments
-    *   3. Написать запросы для изменения статуса выполнения задания
-    *   4. Написать запросы для изменения приоритета выполнения задания */
 }

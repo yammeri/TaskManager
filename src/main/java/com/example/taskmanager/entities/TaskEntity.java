@@ -6,11 +6,19 @@ import com.example.taskmanager.entities.enums.Status;
 import java.util.HashSet;
 import java.util.Objects;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tasks")
-public class Task {
+public class TaskEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,7 +32,7 @@ public class Task {
     private Priority priority;
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "task_id")
-    private HashSet<Comment> allComments = new HashSet<Comment>();
+    private HashSet<CommentEntity> allComments = new HashSet<CommentEntity>();
 
     public Long getId() {
         return this.id;
@@ -46,7 +54,7 @@ public class Task {
         return this.priority;
     }
 
-    public HashSet<Comment> getAllComments() {
+    public HashSet<CommentEntity> getAllComments() {
         return this.allComments;
     }
 
@@ -70,7 +78,7 @@ public class Task {
         this.priority = priority;
     }
 
-    public void setAllComments(HashSet<Comment> allComments) {
+    public void setAllComments(HashSet<CommentEntity> allComments) {
         this.allComments = allComments;
     }
 
@@ -79,10 +87,10 @@ public class Task {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Task)) {
+        if (!(o instanceof TaskEntity)) {
             return false;
         }
-        Task task = (Task) o;
+        TaskEntity task = (TaskEntity) o;
         return Objects.equals(this.id, task.id) &&
                 Objects.equals(this.header, task.header) &&
                 Objects.equals(this.description, task.description) &&

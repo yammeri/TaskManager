@@ -3,11 +3,16 @@ package com.example.taskmanager.entities;
 import java.util.Date;
 import java.util.Objects;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "comments")
-public class Comment {
+public class CommentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -45,10 +50,10 @@ public class Comment {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Comment)) {
+        if (!(o instanceof CommentEntity)) {
             return false;
         }
-        Comment comment = (Comment) o;
+        CommentEntity comment = (CommentEntity) o;
         return Objects.equals(this.id, comment.id) &&
                 Objects.equals(this.date, comment.date) &&
                 Objects.equals(this.text, comment.text);
