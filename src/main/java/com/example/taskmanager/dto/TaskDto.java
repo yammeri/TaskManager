@@ -6,25 +6,35 @@ public class TaskDto {
     private String description;
     private String status;
     private String priority;
+    private Long authorId;
+    private Long performerId;
 
     public Long getId() {
-        return id;
+        return this.id;
     }
 
     public String getHeader() {
-        return header;
+        return this.header;
     }
 
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     public String getStatus() {
-        return status;
+        return this.status;
     }
 
     public String getPriority() {
-        return priority;
+        return this.priority;
+    }
+
+    public Long getAuthorId() {
+        return this.authorId;
+    }
+
+    public Long getPerformerId() {
+        return this.performerId;
     }
 
     public void setId(Long id) {
@@ -45,5 +55,13 @@ public class TaskDto {
 
     public void setPriority(String priority) {
         this.priority = priority;
+    }
+
+    public void setAuthorId(Long authorId) {
+        this.authorId = authorId;
+    }
+
+    public void setPerformerId(Long performerId) {
+        this.performerId = performerId;
     }
 }

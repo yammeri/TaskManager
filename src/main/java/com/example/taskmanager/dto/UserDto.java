@@ -6,15 +6,15 @@ public class UserDto {
     private String lastName;
 
     public Long getId() {
-        return id;
+        return this.id;
     }
 
     public String getFirstName() {
-        return firstName;
+        return this.firstName;
     }
 
     public String getLastName() {
-        return lastName;
+        return this.lastName;
     }
 
     public void setId(Long id) {

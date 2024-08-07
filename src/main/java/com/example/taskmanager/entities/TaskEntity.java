@@ -13,6 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -33,6 +34,14 @@ public class TaskEntity {
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "task_id")
     private HashSet<CommentEntity> allComments = new HashSet<CommentEntity>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "author_id")
+    private UserEntity author;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "performer_id")
+    private UserEntity performer;
 
     public Long getId() {
         return this.id;
@@ -58,6 +67,14 @@ public class TaskEntity {
         return this.allComments;
     }
 
+    public UserEntity getAuthor() {
+        return this.author;
+    }
+
+    public UserEntity getPerformer() {
+        return this.performer;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -80,6 +97,14 @@ public class TaskEntity {
 
     public void setAllComments(HashSet<CommentEntity> allComments) {
         this.allComments = allComments;
+    }
+
+    public void setAuthor(UserEntity author) {
+        this.author = author;
+    }
+
+    public void setPerformer(UserEntity performer) {
+        this.performer = performer;
     }
 
     @Override

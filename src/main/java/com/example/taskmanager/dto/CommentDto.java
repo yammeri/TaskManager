@@ -8,15 +8,15 @@ public class CommentDto {
     private String text;
 
     public Long getId() {
-        return id;
+        return this.id;
     }
 
     public Date getDate() {
-        return date;
+        return this.date;
     }
 
     public String getText() {
-        return text;
+        return this.text;
     }
 
     public void setId(Long id) {
