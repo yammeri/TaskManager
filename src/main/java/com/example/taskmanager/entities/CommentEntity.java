@@ -1,5 +1,6 @@
 package com.example.taskmanager.entities;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -17,7 +18,7 @@ public class CommentEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "date", nullable = false)
-    private Date date;
+    private LocalDate date;
     @Column(name = "text", nullable = false)
     private String text;
 
@@ -25,7 +26,7 @@ public class CommentEntity {
         return this.id;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return this.date;
     }
 
@@ -37,7 +38,7 @@ public class CommentEntity {
         this.id = id;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

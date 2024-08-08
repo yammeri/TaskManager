@@ -1,17 +1,17 @@
-package com.example.taskmanager.dto;
+package com.example.taskmanager.responses;
 
-import java.util.Date;
+import java.time.LocalDate;
 
-public class CommentDto {
+public class CommentResponse {
     private Long id;
-    private Date date;
+    private LocalDate date;
     private String text;
 
     public Long getId() {
         return this.id;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return this.date;
     }
 
@@ -23,7 +23,7 @@ public class CommentDto {
         this.id = id;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

@@ -1,11 +1,9 @@
 package com.example.taskmanager.entities.enums;
 
-import com.example.taskmanager.exceptions.PriorityIllegalArgumentException;
-
 public enum Priority {
-    HIGH("High priority"),
-    MEDIUM("Medium priority"),
-    LOW("Low priority");
+    HIGH("High"),
+    MEDIUM("Medium"),
+    LOW("Low");
 
     private String value;
 
@@ -25,6 +23,6 @@ public enum Priority {
                 }
             }
         }
-        throw new PriorityIllegalArgumentException(value);
+        throw new IllegalArgumentException(value);
     }
 }

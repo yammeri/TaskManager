@@ -1,11 +1,9 @@
 package com.example.taskmanager.entities.enums;
 
-import com.example.taskmanager.exceptions.StatusIllegalArgumentException;
-
 public enum Status {
-    WAITING("Task is waiting"),
-    PROGRESS("Task in progress"),
-    COMPLETED("Task completed");
+    WAITING("Is waiting"),
+    PROGRESS("In progress"),
+    COMPLETED("Completed");
 
     private String value;
 
@@ -25,6 +23,6 @@ public enum Status {
                 }
             }
         }
-       throw new StatusIllegalArgumentException(value);
+       throw new IllegalArgumentException(value);
     }
 }

@@ -1,19 +1,19 @@
 package com.example.taskmanager.converters;
 
-import com.example.taskmanager.dto.TaskDto;
+import com.example.taskmanager.responses.TaskResponse;
 import com.example.taskmanager.entities.TaskEntity;
 import com.example.taskmanager.entities.enums.Priority;
 import com.example.taskmanager.entities.enums.Status;
-import com.example.taskmanager.exceptions.UserNotFoundException;
-import com.example.taskmanager.repositories.TaskRepository;
 import com.example.taskmanager.repositories.UserRepository;
 import org.springframework.stereotype.Service;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class TaskConverter {
     private static UserRepository repository;
-    public static TaskDto toTaskDto(TaskEntity entity) {
-        TaskDto dto = new TaskDto();
+    public static TaskResponse toTaskResponse(TaskEntity entity) {
+        TaskResponse dto = new TaskResponse();
         dto.setId(entity.getId());
         dto.setHeader(entity.getHeader());
         dto.setDescription(entity.getDescription());
@@ -24,7 +24,7 @@ public class TaskConverter {
         return dto;
     }
 
-    public static TaskEntity toTaskEntity(TaskDto dto) {
+    public static TaskEntity toTaskEntity(TaskResponse dto) {
         TaskEntity entity = new TaskEntity();
         entity.setId(dto.getId());
         entity.setHeader(dto.getHeader());
@@ -32,9 +32,9 @@ public class TaskConverter {
         entity.setStatus(Status.fromString(dto.getStatus()));
         entity.setPriority(Priority.fromString(dto.getPriority()));
         entity.setAuthor(repository.findById(dto.getAuthorId())
-                .orElseThrow(() -> new UserNotFoundException(dto.getAuthorId())));
+                .orElseThrow(() -> new EntityNotFoundException()));
         entity.setPerformer(repository.findById(dto.getPerformerId())
-                .orElseThrow(() -> new UserNotFoundException(dto.getPerformerId())));
+                .orElseThrow(() -> new EntityNotFoundException()));
         return entity;
     }
 }
