@@ -10,12 +10,14 @@ import com.example.taskmanager.entities.UserEntity;
 import com.example.taskmanager.entities.enums.Priority;
 import com.example.taskmanager.entities.enums.Status;
 import com.example.taskmanager.repositories.TaskRepository;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.transaction.annotation.Transactional;
 
 import static java.util.Optional.ofNullable;
 
@@ -23,28 +25,31 @@ import static java.util.Optional.ofNullable;
 public class TaskService {
     private static TaskRepository repository;
 
-    public TaskResponse create(TaskResponse dto) {
+    @NotNull
+    @Transactional
+    public TaskResponse create(@NotNull TaskResponse dto) {
         return TaskConverter.toTaskResponse(repository.save(TaskConverter.toTaskEntity(dto)));
     }
 
-    public TaskResponse update(Long id, TaskResponse response) {
+    @NotNull
+    @Transactional
+    public TaskResponse update(@NotNull Long id, @NotNull TaskResponse response) {
         TaskEntity task = repository.findById(id).orElseThrow(() -> new EntityNotFoundException());
         taskUpdate(task, response);
         return TaskConverter.toTaskResponse(repository.save(task));
     }
 
-    private void taskUpdate(TaskEntity task, TaskResponse response) {
-        ofNullable(response.getHeader()).ifPresent(task::setHeader);
-        ofNullable(response.getDescription()).ifPresent(task::setDescription);
-    }
-
-    public TaskResponse findById(Long id) {
+    @NotNull
+    @Transactional(readOnly = true)
+    public TaskResponse findById(@NotNull Long id) {
         return TaskConverter.toTaskResponse(
                 repository.findById(id)
                         .orElseThrow(() -> new EntityNotFoundException()));
     }
 
-    public TaskResponse updatePriority(Long id, String priority) {
+    @NotNull
+    @Transactional
+    public TaskResponse updatePriority(@NotNull Long id, @NotNull String priority) {
         TaskEntity task = repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException());
         task.setPriority(Priority.fromString(priority));
@@ -52,7 +57,9 @@ public class TaskService {
         return null;
     }
 
-    public TaskResponse updateStatus(Long id, String status) {
+    @NotNull
+    @Transactional
+    public TaskResponse updateStatus(@NotNull Long id, @NotNull String status) {
         TaskEntity task = repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException());
         task.setStatus(Status.fromString(status));
@@ -60,7 +67,9 @@ public class TaskService {
         return null;
     }
 
-    public List<CommentResponse> findByIdAllComments(Long id) {
+    @NotNull
+    @Transactional(readOnly = true)
+    public List<CommentResponse> findByIdAllComments(@NotNull Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException())
                 .getAllComments().stream()
@@ -68,7 +77,9 @@ public class TaskService {
                 .collect(Collectors.toList());
     }
 
-    public TaskResponse setPerformer(Long taskId, Long performerId) {
+    @NotNull
+    @Transactional
+    public TaskResponse setPerformer(@NotNull Long taskId, @NotNull Long performerId) {
         TaskEntity task = repository.findById(taskId)
                 .orElseThrow(() -> new EntityNotFoundException());
 
@@ -86,5 +97,10 @@ public class TaskService {
         }
 
         return TaskConverter.toTaskResponse(task);
+    }
+
+    private void taskUpdate(TaskEntity task, TaskResponse response) {
+        ofNullable(response.getHeader()).ifPresent(task::setHeader);
+        ofNullable(response.getDescription()).ifPresent(task::setDescription);
     }
 }
