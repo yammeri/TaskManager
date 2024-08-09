@@ -1,8 +1,14 @@
 package com.example.taskmanager.responses;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
+@Schema(description = "Сущность пользователя")
 public class UserResponse {
+    @Schema(description = "Идентификатор")
     private Long id;
+    @Schema(description = "Имя")
     private String firstName;
+    @Schema(description = "Фамилия")
     private String lastName;
 
     public Long getId() {

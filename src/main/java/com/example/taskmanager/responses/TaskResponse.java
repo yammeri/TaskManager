@@ -1,12 +1,24 @@
 package com.example.taskmanager.responses;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
+@Schema(description = "Сущность задачи")
+
 public class TaskResponse {
+    @Schema(description = "Идентификатор")
+
     private Long id;
+    @Schema(description = "Заголовок")
     private String header;
+    @Schema(description = "Описание")
     private String description;
+    @Schema(description = "Статус", enumAsRef = true)
     private String status;
+    @Schema(description = "Приоритет", enumAsRef = true)
     private String priority;
+    @Schema(description = "Идентификатор автора")
     private Long authorId;
+    @Schema(description = "Идентификатор исполнителя")
     private Long performerId;
 
     public Long getId() {

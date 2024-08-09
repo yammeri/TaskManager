@@ -1,10 +1,17 @@
 package com.example.taskmanager.responses;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.time.LocalDate;
 
+@Schema(description = "Сущность комментария")
 public class CommentResponse {
+    @Schema(description = "Идентификатор")
     private Long id;
+    @Schema(description = "Дата создания")
     private LocalDate date;
+    @Schema(description = "Текст")
+
     private String text;
 
     public Long getId() {
